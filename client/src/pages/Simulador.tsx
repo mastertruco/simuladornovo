@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card } from "@/components/ui/card";
 import { toast } from "sonner";
+import ApresentacaoAlavancagem from "@/components/ApresentacaoAlavancagem";
 
 /**
  * Simulador de Consórcio - Página Pública (sem login)
@@ -98,6 +99,7 @@ export default function Simulador() {
   const [activeTab, setActiveTab] = useState<"credito" | "meia">("credito");
   const [leadSent, setLeadSent] = useState(false);
   const [errors, setErrors] = useState<{ nome?: string; telefone?: string }>({});
+  const [showApresentacao, setShowApresentacao] = useState(false);
 
   const formatCurrency = (value: number): string => {
     return new Intl.NumberFormat("pt-BR", {
@@ -251,6 +253,16 @@ export default function Simulador() {
       taxasEFundo: novasTaxas,
     });
   };
+
+  if (showApresentacao && results) {
+    return (
+      <ApresentacaoAlavancagem
+        formData={formData}
+        results={results}
+        onBack={() => setShowApresentacao(false)}
+      />
+    );
+  }
 
   return (
     <div className="min-h-screen bg-white" style={{ fontFamily: "Montserrat, sans-serif" }}>
@@ -570,6 +582,17 @@ export default function Simulador() {
               </Card>
             ) : (
               <div className="space-y-8 max-w-4xl">
+                {/* BOTAO DE APRESENTACAO */}
+                <div className="flex gap-3 mb-6">
+                  <Button
+                    onClick={() => setShowApresentacao(true)}
+                    className="flex-1 bg-red-600 hover:bg-red-700 text-white font-bold py-3 rounded-lg transition-all text-lg"
+                  >
+                    <TrendingUp className="mr-2" size={20} />
+                    Ver Alavancagem Financeira
+                  </Button>
+                </div>
+
                 {/* Lead enviado com sucesso */}
                 {leadSent && (
                   <div className="bg-green-50 border border-green-200 rounded-xl p-4 flex items-center gap-3">
