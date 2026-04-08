@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Home as HomeIcon, Car, TrendingUp, Phone, User, Globe, CheckCircle, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -100,6 +100,15 @@ export default function Simulador() {
   const [leadSent, setLeadSent] = useState(false);
   const [errors, setErrors] = useState<{ nome?: string; telefone?: string }>({});
   const [showApresentacao, setShowApresentacao] = useState(false);
+
+  // Atualizar prazo automaticamente quando valor do crédito ou tipo de bem mudar
+  useEffect(() => {
+    const novoPrazo = getPrazoByCredito(formData.valorCredito, formData.tipoDeBeM);
+    setFormData(prev => ({
+      ...prev,
+      prazo: novoPrazo
+    }));
+  }, [formData.valorCredito, formData.tipoDeBeM]);
 
   const formatCurrency = (value: number): string => {
     return new Intl.NumberFormat("pt-BR", {

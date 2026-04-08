@@ -223,27 +223,116 @@ export default function ApresentacaoAlavancagem({
 
         {activeTab === "aquisicao" && (
           <div className="space-y-8">
+            {/* RESUMO PRINCIPAL */}
             <Card className="p-8 border-l-4 border-red-600">
               <h2 className="text-2xl font-bold text-slate-900 mb-8">CENÁRIO: AQUISIÇÃO DE BENS</h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div className="space-y-4">
-                  <div className="bg-slate-50 p-6 rounded-lg">
-                    <p className="text-sm text-slate-600 font-semibold mb-2">Crédito Contemplado</p>
-                    <p className="text-3xl font-bold text-slate-900">{formatCurrency(results.creditoContemplado)}</p>
-                  </div>
-                  <div className="bg-slate-50 p-6 rounded-lg">
-                    <p className="text-sm text-slate-600 font-semibold mb-2">Saldo Devedor Atualizado</p>
-                    <p className="text-3xl font-bold text-slate-900">{formatCurrency(results.saldoDevedorAtualizado)}</p>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+                <div className="bg-slate-50 p-4 rounded-lg">
+                  <p className="text-xs text-slate-600 font-semibold mb-2">Crédito Contemplado</p>
+                  <p className="text-2xl font-bold text-slate-900">{formatCurrency(results.creditoContemplado)}</p>
+                </div>
+                <div className="bg-slate-50 p-4 rounded-lg">
+                  <p className="text-xs text-slate-600 font-semibold mb-2">Meses Pagos até Contemplação</p>
+                  <p className="text-2xl font-bold text-slate-900">{formData.nParcelasPagas}</p>
+                </div>
+                <div className="bg-slate-50 p-4 rounded-lg">
+                  <p className="text-xs text-slate-600 font-semibold mb-2">Parcela Pós Contemplação</p>
+                  <p className="text-2xl font-bold text-red-600">{formatCurrency(results.parcelaPosContemplacao)}</p>
+                </div>
+                <div className="bg-slate-50 p-4 rounded-lg">
+                  <p className="text-xs text-slate-600 font-semibold mb-2">Locação Mensal</p>
+                  <p className="text-2xl font-bold text-green-600">{formatCurrency(results.locacaoMensal)}</p>
+                </div>
+              </div>
+            </Card>
+
+            {/* DESEMBOLSO MENSAL */}
+            <Card className="p-8 border-l-4 border-amber-600 bg-gradient-to-br from-amber-50 to-white">
+              <h3 className="text-xl font-bold text-slate-900 mb-6">DESEMBOLSO MENSAL</h3>
+              <div className="space-y-4">
+                <div className="flex justify-between items-center pb-4 border-b-2 border-amber-200">
+                  <span className="text-slate-600 font-semibold">Parcela Pós Contemplação</span>
+                  <span className="text-2xl font-bold text-slate-900">{formatCurrency(results.parcelaPosContemplacao)}</span>
+                </div>
+                <div className="flex justify-between items-center pb-4 border-b-2 border-amber-200">
+                  <span className="text-slate-600 font-semibold">(-) Locação Mensal</span>
+                  <span className="text-2xl font-bold text-green-600">-{formatCurrency(results.locacaoMensal)}</span>
+                </div>
+                <div className="flex justify-between items-center pt-4 bg-amber-100 p-4 rounded-lg">
+                  <span className="text-slate-900 font-bold text-lg">= DESEMBOLSO LÍQUIDO</span>
+                  <span className="text-3xl font-bold text-amber-600">{formatCurrency(Math.max(0, results.parcelaPosContemplacao - results.locacaoMensal))}</span>
+                </div>
+              </div>
+            </Card>
+
+            {/* CUSTO FINAL DO IMÓVEL - FÓRMULA CORRIGIDA */}
+            <Card className="p-8 border-l-4 border-blue-600 bg-gradient-to-br from-blue-50 to-white">
+              <h3 className="text-xl font-bold text-slate-900 mb-6">CUSTO FINAL DO IMÓVEL</h3>
+              
+              <div className="space-y-6">
+                {/* FÓRMULA */}
+                <div className="bg-white p-6 rounded-lg border-2 border-blue-300">
+                  <p className="text-sm font-bold text-blue-600 mb-4">FÓRMULA DE CÁLCULO:</p>
+                  <div className="bg-blue-50 p-4 rounded font-mono text-sm mb-4">
+                    <p className="text-slate-900">Custo Final = (Desembolso Mensal × Meses Restantes) + Parcelas Já Pagas</p>
                   </div>
                 </div>
-                <div className="space-y-4">
-                  <div className="bg-slate-50 p-6 rounded-lg">
-                    <p className="text-sm text-slate-600 font-semibold mb-2">Parcela Pós Contemplação</p>
-                    <p className="text-3xl font-bold text-red-600">{formatCurrency(results.parcelaPosContemplacao)}</p>
+
+                {/* PASSO 1 */}
+                <div className="bg-white p-4 rounded-lg border-l-4 border-blue-400">
+                  <p className="text-sm font-bold text-blue-600 mb-3">PASSO 1: Calcular Desembolso Mensal</p>
+                  <div className="space-y-2 text-sm">
+                    <div className="flex justify-between">
+                      <span className="text-slate-600">Parcela Pós Contemplação</span>
+                      <span className="font-semibold">{formatCurrency(results.parcelaPosContemplacao)}</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-slate-600">(-) Locação Mensal</span>
+                      <span className="font-semibold text-green-600">-{formatCurrency(results.locacaoMensal)}</span>
+                    </div>
+                    <div className="flex justify-between pt-2 border-t border-slate-200 font-bold">
+                      <span>Desembolso Mensal</span>
+                      <span className="text-blue-600">{formatCurrency(Math.max(0, results.parcelaPosContemplacao - results.locacaoMensal))}</span>
+                    </div>
                   </div>
-                  <div className="bg-slate-50 p-6 rounded-lg">
-                    <p className="text-sm text-slate-600 font-semibold mb-2">Locação Mensal</p>
-                    <p className="text-3xl font-bold text-green-600">{formatCurrency(results.locacaoMensal)}</p>
+                </div>
+
+                {/* PASSO 2 */}
+                <div className="bg-white p-4 rounded-lg border-l-4 border-blue-400">
+                  <p className="text-sm font-bold text-blue-600 mb-3">PASSO 2: Multiplicar pelos Meses Restantes</p>
+                  <div className="space-y-2 text-sm">
+                    <div className="flex justify-between">
+                      <span className="text-slate-600">Desembolso Mensal</span>
+                      <span className="font-semibold">{formatCurrency(Math.max(0, results.parcelaPosContemplacao - results.locacaoMensal))}</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-slate-600">× Meses Restantes</span>
+                      <span className="font-semibold">{formData.prazo - formData.nParcelasPagas}</span>
+                    </div>
+                    <div className="flex justify-between pt-2 border-t border-slate-200 font-bold">
+                      <span>Subtotal</span>
+                      <span className="text-blue-600">{formatCurrency(Math.max(0, results.parcelaPosContemplacao - results.locacaoMensal) * (formData.prazo - formData.nParcelasPagas))}</span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* PASSO 3 - RESULTADO FINAL */}
+                <div className="bg-gradient-to-r from-blue-100 to-blue-50 p-6 rounded-lg border-2 border-blue-400">
+                  <p className="text-sm font-bold text-blue-600 mb-4">PASSO 3: Adicionar Parcelas Já Pagas</p>
+                  <div className="space-y-3">
+                    <div className="flex justify-between text-sm">
+                      <span className="text-slate-600">Desembolso Futuro (Meses Restantes)</span>
+                      <span className="font-semibold">{formatCurrency(Math.max(0, results.parcelaPosContemplacao - results.locacaoMensal) * (formData.prazo - formData.nParcelasPagas))}</span>
+                    </div>
+                    <div className="flex justify-between text-sm">
+                      <span className="text-slate-600">(+) Parcelas Já Pagas</span>
+                      <span className="font-semibold text-red-600">+{formatCurrency(results.parcelasPagasAcumuladas)}</span>
+                    </div>
+                    <div className="flex justify-between pt-3 border-t-2 border-blue-300 font-bold text-lg">
+                      <span className="text-slate-900">CUSTO FINAL DO IMÓVEL</span>
+                      <span className="text-blue-600 text-2xl">{formatCurrency(Math.max(0, results.parcelaPosContemplacao - results.locacaoMensal) * (formData.prazo - formData.nParcelasPagas) + results.parcelasPagasAcumuladas)}</span>
+                    </div>
+                    <p className="text-xs text-slate-600 pt-3 italic">Este é o valor total que você investirá no consórcio até a quitação</p>
                   </div>
                 </div>
               </div>
