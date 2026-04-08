@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Play } from "lucide-react";
+import { ArrowRight, Play, Settings } from "lucide-react";
 import { useLocation } from "wouter";
+import SimuladorSimplificado from "@/components/SimuladorSimplificado";
 
 export default function Home() {
   const [, setLocation] = useLocation();
@@ -49,7 +50,7 @@ export default function Home() {
             </div>
 
             {/* CTA Button */}
-            <div className="pt-8">
+            <div className="pt-8 flex gap-4 justify-center">
               <Button
                 onClick={() => setLocation("/simulador")}
                 className="bg-red-600 hover:bg-red-700 text-white px-12 py-6 text-lg font-semibold rounded-full shadow-lg hover:shadow-xl transition-all transform hover:scale-105 flex items-center gap-3"
@@ -57,6 +58,14 @@ export default function Home() {
                 <Play size={20} />
                 Iniciar Simulação
                 <ArrowRight size={20} />
+              </Button>
+              <Button
+                onClick={() => setLocation("/admin")}
+                variant="outline"
+                className="border-white text-white hover:bg-white/10 px-8 py-6 text-lg font-semibold rounded-full flex items-center gap-2"
+              >
+                <Settings size={20} />
+                Admin
               </Button>
             </div>
           </div>
