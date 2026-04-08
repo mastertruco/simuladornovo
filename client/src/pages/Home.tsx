@@ -70,58 +70,93 @@ export default function Home() {
         </div>
       </div>
 
-      {/* SEÇÃO SOBRE */}
+      {/* SEÇÃO SOBRE O GRUPO COM VÍDEO */}
       <section className="py-20 px-4 bg-white">
-        <div className="max-w-6xl mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-            <div className="space-y-6">
-              <h2 
-                className="text-4xl font-bold text-slate-900"
-                style={{ fontFamily: "Playfair Display, serif" }}
-              >
-                Juntos para Crescer
-              </h2>
-              <p className="text-lg text-slate-700 leading-relaxed">
+        <div className="max-w-6xl mx-auto space-y-12">
+          {/* HEADER */}
+          <div className="bg-gradient-to-r from-red-600 to-red-700 rounded-2xl p-8 text-white shadow-lg">
+            <h2 className="text-4xl font-bold mb-2" style={{ fontFamily: "Playfair Display, serif" }}>Conheça Nossa História</h2>
+            <p className="text-red-100 text-lg">Grupo Herval - 65 Anos de Tradição e Inovação</p>
+          </div>
+
+          {/* VÍDEO */}
+          <div className="bg-white rounded-2xl p-8 shadow-lg">
+            <div className="relative w-full" style={{ paddingBottom: "56.25%" }}>
+              <iframe
+                className="absolute top-0 left-0 w-full h-full rounded-xl"
+                src="https://www.youtube.com/embed/e3MGD4a1FF0"
+                title="Grupo Herval"
+                frameBorder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+              />
+            </div>
+          </div>
+
+          {/* SOBRE E COMPROMISSO */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div className="bg-gradient-to-br from-red-50 to-red-100 rounded-2xl p-8 shadow-lg">
+              <h3 className="text-2xl font-bold text-red-600 mb-4" style={{ fontFamily: "Playfair Display, serif" }}>Sobre Nós</h3>
+              <p className="text-slate-700 leading-relaxed mb-4">
                 Fundado em 1959 em Dois Irmãos, o Grupo Herval é um conglomerado gaúcho que abrange mais de 25 marcas, abarcando indústria, atacado, varejo, e-commerce, serviços, construção e operações financeiras.
               </p>
-              <p className="text-lg text-slate-700 leading-relaxed">
+              <p className="text-slate-700 leading-relaxed">
                 Com presença em todas as regiões do Brasil, somos reconhecidos por nossa tradição e qualidade. Em 2024, completamos 65 anos com a certeza de que todos os nossos clientes fizeram parte desse crescimento.
               </p>
-              <Button
-                onClick={() => setLocation("/simulador")}
-                className="bg-red-600 hover:bg-red-700 text-white px-8 py-3 text-base font-semibold rounded-lg"
-              >
-                Começar Simulação
-              </Button>
             </div>
-            <div className="bg-gradient-to-br from-red-50 to-red-100 rounded-2xl p-8 shadow-lg">
-              <div className="space-y-6">
-                <div className="border-l-4 border-red-600 pl-6">
-                  <h3 className="text-xl font-bold text-red-600 mb-2">Visão</h3>
-                  <p className="text-slate-700">
-                    Reconhecimento nacional e internacional pelo modelo de gestão, crescimento e solidez.
-                  </p>
-                </div>
-                <div className="border-l-4 border-slate-400 pl-6">
-                  <h3 className="text-xl font-bold text-slate-700 mb-2">Missão</h3>
-                  <p className="text-slate-700">
-                    Excelência nos mínimos detalhes em produtos e serviços para superar expectativas.
-                  </p>
-                </div>
-                <div className="border-l-4 border-slate-400 pl-6">
-                  <h3 className="text-xl font-bold text-slate-700 mb-2">Valores</h3>
-                  <p className="text-slate-700">
-                    Clientes, colaboradores, comunidade e crescimento contínuo.
-                  </p>
-                </div>
-              </div>
+
+            <div className="bg-gradient-to-br from-slate-50 to-slate-100 rounded-2xl p-8 shadow-lg">
+              <h3 className="text-2xl font-bold text-slate-700 mb-4" style={{ fontFamily: "Playfair Display, serif" }}>Compromisso</h3>
+              <p className="text-slate-700 leading-relaxed mb-4">
+                Juntos, seguimos evoluindo, com foco no aprimoramento constante e no máximo respeito ao meio ambiente, comprometidos em oferecer o nosso melhor tanto para o consumidor quanto para o planeta.
+              </p>
+              <p className="text-slate-700 leading-relaxed">
+                Há 65 anos produzimos desejos, criamos soluções e realizamos sonhos. Nosso compromisso é com a excelência nos mínimos detalhes.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* SEÇÃO VISÃO, MISSÃO E VALORES */}
+      <section className="py-20 px-4 bg-gradient-to-b from-slate-50 to-white">
+        <div className="max-w-6xl mx-auto">
+          <h2 
+            className="text-4xl font-bold text-slate-900 text-center mb-12"
+            style={{ fontFamily: "Playfair Display, serif" }}
+          >
+            Nossos Pilares
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="bg-gradient-to-br from-red-50 to-red-100 rounded-2xl p-8 border-l-4 border-red-600 shadow-lg">
+              <h3 className="text-xl font-bold text-red-600 mb-3">Visão</h3>
+              <p className="text-slate-700 leading-relaxed">
+                Reconhecimento nacional e internacional pelo modelo de gestão, crescimento, solidez e diversificação dos negócios com excelência nos processos, produtos e serviços.
+              </p>
+            </div>
+
+            <div className="bg-gradient-to-br from-slate-50 to-slate-100 rounded-2xl p-8 border-l-4 border-slate-600 shadow-lg">
+              <h3 className="text-xl font-bold text-slate-600 mb-3">Missão</h3>
+              <p className="text-slate-700 leading-relaxed">
+                Em harmonia com a comunidade e o meio ambiente, buscamos excelência nos mínimos detalhes em produtos e serviços para atender às necessidades dos clientes e superar expectativas.
+              </p>
+            </div>
+
+            <div className="bg-gradient-to-br from-slate-50 to-slate-100 rounded-2xl p-8 border-l-4 border-slate-600 shadow-lg">
+              <h3 className="text-xl font-bold text-slate-600 mb-3">Valores</h3>
+              <ul className="text-slate-700 space-y-2">
+                <li>• <strong>Clientes:</strong> Superar expectativas</li>
+                <li>• <strong>Colaboradores:</strong> Respeito e cooperação</li>
+                <li>• <strong>Comunidade:</strong> Harmonia e preservação</li>
+                <li>• <strong>Crescimento:</strong> Evolução contínua</li>
+              </ul>
             </div>
           </div>
         </div>
       </section>
 
       {/* SEÇÃO DE MARCAS */}
-      <section className="py-20 px-4 bg-gradient-to-b from-slate-50 to-white">
+      <section className="py-20 px-4 bg-white">
         <div className="max-w-6xl mx-auto text-center">
           <h2 
             className="text-4xl font-bold text-slate-900 mb-4"

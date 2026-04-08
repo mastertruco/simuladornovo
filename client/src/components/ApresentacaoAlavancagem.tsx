@@ -37,7 +37,7 @@ export default function ApresentacaoAlavancagem({
   results,
   onBack,
 }: ApresentacaoProps) {
-  const [activeTab, setActiveTab] = useState<"apresentacao" | "alavancagem" | "aquisicao" | "investimento">("apresentacao");
+  const [activeTab, setActiveTab] = useState<"alavancagem" | "aquisicao" | "investimento">("alavancagem");
 
   const formatCurrency = (value: number): string => {
     return new Intl.NumberFormat("pt-BR", {
@@ -88,7 +88,6 @@ export default function ApresentacaoAlavancagem({
         {/* ABAS */}
         <div className="max-w-7xl mx-auto px-4 flex gap-1 border-t border-slate-200">
           {[
-            { id: "apresentacao", label: "Sobre o Grupo", icon: TrendingUp },
             { id: "alavancagem", label: "Alavancagem Financeira", icon: TrendingUp },
             { id: "aquisicao", label: "Aquisição de Bens", icon: HomeIcon },
             { id: "investimento", label: "Investimento Aplicado", icon: DollarSign },
@@ -111,77 +110,7 @@ export default function ApresentacaoAlavancagem({
 
       {/* CONTEÚDO */}
       <div className="max-w-7xl mx-auto px-4 py-8">
-        {activeTab === "apresentacao" && (
-          <div className="space-y-8">
-            {/* HEADER */}
-            <div className="bg-gradient-to-r from-red-600 to-red-700 rounded-2xl p-8 text-white shadow-lg">
-              <h2 className="text-4xl font-bold mb-2" style={{ fontFamily: "Playfair Display, serif" }}>Grupo Herval</h2>
-              <p className="text-red-100 text-lg">Somos 27 marcas presentes em todas as regiões do Brasil</p>
-            </div>
 
-            {/* VÍDEO */}
-            <div className="bg-white rounded-2xl p-8 shadow-lg">
-              <h3 className="text-2xl font-bold text-slate-900 mb-6" style={{ fontFamily: "Playfair Display, serif" }}>Conheça Nossa História</h3>
-              <div className="relative w-full" style={{ paddingBottom: "56.25%" }}>
-                <iframe
-                  className="absolute top-0 left-0 w-full h-full rounded-xl"
-                  src="https://www.youtube.com/embed/e3MGD4a1FF0"
-                  title="Grupo Herval"
-                  frameBorder="0"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowFullScreen
-                />
-              </div>
-            </div>
-
-            {/* SOBRE */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              <div className="bg-white rounded-2xl p-8 shadow-lg">
-                <h3 className="text-2xl font-bold text-slate-900 mb-4" style={{ fontFamily: "Playfair Display, serif" }}>Sobre Nós</h3>
-                <p className="text-slate-700 leading-relaxed mb-4">
-                  Fundado em 1959 em Dois Irmãos, o Grupo Herval é um conglomerado gaúcho que abrange mais de 25 marcas, abarcando indústria, atacado, varejo, e-commerce, serviços, construção e operações financeiras. Com presença em todas as regiões do Brasil, somos reconhecidos por nossa tradição e qualidade.
-                </p>
-                <p className="text-slate-700 leading-relaxed">
-                  Em 2024, completamos mais um importante marco em nossa história, fundamentada na confiança dos nossos clientes. Assim, há 65 anos produzimos desejos, criamos soluções e realizamos sonhos.
-                </p>
-              </div>
-
-              <div className="bg-white rounded-2xl p-8 shadow-lg">
-                <h3 className="text-2xl font-bold text-slate-900 mb-4" style={{ fontFamily: "Playfair Display, serif" }}>Compromisso</h3>
-                <p className="text-slate-700 leading-relaxed">
-                  Juntos, seguimos evoluindo, com foco no aprimoramento constante e no máximo respeito ao meio ambiente, comprometidos em oferecer o nosso melhor tanto para o consumidor quanto para o planeta.
-                </p>
-              </div>
-            </div>
-
-            {/* VISÃO, MISSÃO, VALORES */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              <div className="bg-gradient-to-br from-red-50 to-red-100 rounded-2xl p-8 border-l-4 border-red-600">
-                <h4 className="text-xl font-bold text-red-600 mb-3">Visão</h4>
-                <p className="text-slate-700 text-sm leading-relaxed">
-                  Reconhecimento nacional e internacional pelo modelo de gestão, crescimento, solidez e diversificação dos negócios com excelência nos processos, produtos e serviços.
-                </p>
-              </div>
-
-              <div className="bg-gradient-to-br from-slate-50 to-slate-100 rounded-2xl p-8 border-l-4 border-slate-600">
-                <h4 className="text-xl font-bold text-slate-600 mb-3">Missão</h4>
-                <p className="text-slate-700 text-sm leading-relaxed">
-                  Em harmonia com a comunidade e o meio ambiente, buscamos excelência nos mínimos detalhes em produtos e serviços para atender às necessidades dos clientes e superar expectativas.
-                </p>
-              </div>
-
-              <div className="bg-gradient-to-br from-slate-50 to-slate-100 rounded-2xl p-8 border-l-4 border-slate-600">
-                <h4 className="text-xl font-bold text-slate-600 mb-3">Valores</h4>
-                <ul className="text-slate-700 text-sm space-y-2">
-                  <li>• <strong>Clientes:</strong> Superar expectativas</li>
-                  <li>• <strong>Colaboradores:</strong> Respeito e cooperação</li>
-                  <li>• <strong>Comunidade:</strong> Harmonia e preservação</li>
-                  <li>• <strong>Crescimento:</strong> Evolução contínua</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        )}
 
         {activeTab === "alavancagem" && (
           <div className="space-y-8">
