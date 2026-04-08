@@ -14,10 +14,10 @@ import ApresentacaoAlavancagem from "@/components/ApresentacaoAlavancagem";
  */
 
 const prazoFaixasImovel = [
-  { minCredito: 100000, maxCredito: 180000, prazo: 180 },
-  { minCredito: 200000, maxCredito: 750000, prazo: 200 },
-  { minCredito: 500000, maxCredito: 1400000, prazo: 220 },
   { minCredito: 1500000, maxCredito: 2000000, prazo: 240 },
+  { minCredito: 500000, maxCredito: 1400000, prazo: 220 },
+  { minCredito: 200000, maxCredito: 750000, prazo: 200 },
+  { minCredito: 100000, maxCredito: 180000, prazo: 180 },
 ];
 
 const prazoFaixasVeiculo = [
