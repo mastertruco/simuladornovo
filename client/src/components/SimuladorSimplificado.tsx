@@ -48,7 +48,7 @@ export default function SimuladorSimplificado() {
     return faixa?.prazo || 180;
   };
 
-  const calcularSimulacao = () => {
+  const calcularSimulacao = async () => {
     if (!nome.trim() || !telefone.trim()) {
       alert("Por favor, preencha nome e telefone");
       return;
@@ -56,30 +56,88 @@ export default function SimuladorSimplificado() {
 
     const prazo = getPrazoByCredito(creditoInicial, tipoDeBeM);
     
-    // Selecionar taxa baseada no tipo de bem
-    let taxaAplicavel = params.taxaImobiliario;
-    if (tipoDeBeM === "VEÍCULO") taxaAplicavel = params.taxaVeiculo;
-    if (tipoDeBeM === "INVESTIMENTO") taxaAplicavel = params.taxaInvestimento;
+    // Selecionar taxa baseada no tipo de bem (valores fixos)
+    let taxaAplicavel = 23; // Imóvel
+    if (tipoDeBeM === "VEÍCULO") taxaAplicavel = 16; // Veículo
+    if (tipoDeBeM === "INVESTIMENTO") taxaAplicavel = 20; // Investimento
 
-    // Calcular crédito contemplado com reajuste INCC
-    const anosCompletos = Math.floor(prazo / 12);
-    const creditoContemplado = creditoInicial * Math.pow(1 + params.inccPercentual / 100, anosCompletos);
-
-    // Calcular parcelas
-    const creditoComTaxas = creditoContemplado * (1 + taxaAplicavel / 100);
+    // Fórmula simplificada: (Crédito × (1 + Taxa%)) / Prazo
+    const creditoComTaxas = creditoInicial * (1 + taxaAplicavel / 100);
     const parcelaInteira = creditoComTaxas / prazo;
     const parcelaMeia = parcelaInteira / 2;
 
-    setResultado({
+    const novoResultado = {
       creditoInicial,
       prazoMeses: prazo,
       parcelaMeia: Math.round(parcelaMeia * 100) / 100,
       parcelaInteira: Math.round(parcelaInteira * 100) / 100,
-    });
+    };
+
+    setResultado(novoResultado);
+    
+    // Salvar lead automaticamente (sem avisar)
+    try {
+      const leadData = {
+        nome,
+        telefone,
+        pais,
+        tipoDeBeM,
+        creditoInicial,
+        prazoMeses: prazo,
+        parcelaMeia: novoResultado.parcelaMeia,
+        parcelaInteira: novoResultado.parcelaInteira,
+        dataSimulacao: new Date().toISOString(),
+      };
+
+      await fetch("/api/leads", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(leadData),
+      });
+    } catch (error) {
+      console.error("Erro ao enviar lead:", error);
+    }
+
     setMostrandoResultado(true);
   };
 
-  const irParaPresentacao = () => {
+  const enviarLead = async () => {
+    try {
+      const leadData = {
+        nome,
+        telefone,
+        pais,
+        tipoDeBeM,
+        creditoInicial,
+        prazoMeses: resultado?.prazoMeses || 0,
+        parcelaMeia: resultado?.parcelaMeia || 0,
+        parcelaInteira: resultado?.parcelaInteira || 0,
+        dataSimulacao: new Date().toISOString(),
+      };
+
+      // Enviar para a API do Manus
+      const response = await fetch("/api/leads", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(leadData),
+      });
+
+      if (!response.ok) {
+        console.error("Erro ao enviar lead");
+      }
+    } catch (error) {
+      console.error("Erro ao enviar lead:", error);
+    }
+  };
+
+  const irParaPresentacao = async () => {
+    // Enviar dados do lead
+    await enviarLead();
+
     // Armazenar dados da simulação para usar na apresentação
     const dadosSimulacao = {
       nome,
@@ -159,12 +217,6 @@ export default function SimuladorSimplificado() {
             className="flex-1 py-6 text-lg font-semibold"
           >
             Voltar
-          </Button>
-          <Button
-            onClick={irParaPresentacao}
-            className="flex-1 bg-red-600 hover:bg-red-700 text-white py-6 text-lg font-semibold"
-          >
-            Ver Apresentação Completa
           </Button>
         </div>
       </div>

@@ -1,5 +1,3 @@
-import { Button } from "@/components/ui/button";
-import { ArrowRight, Play, Settings } from "lucide-react";
 import { useLocation } from "wouter";
 import SimuladorSimplificado from "@/components/SimuladorSimplificado";
 
@@ -49,24 +47,15 @@ export default function Home() {
               </p>
             </div>
 
-            {/* CTA Button */}
-            <div className="pt-8 flex gap-4 justify-center">
-              <Button
-                onClick={() => setLocation("/simulador")}
-                className="bg-red-600 hover:bg-red-700 text-white px-12 py-6 text-lg font-semibold rounded-full shadow-lg hover:shadow-xl transition-all transform hover:scale-105 flex items-center gap-3"
-              >
-                <Play size={20} />
-                Iniciar Simulação
-                <ArrowRight size={20} />
-              </Button>
-              <Button
+            {/* Admin Link Oculto */}
+            <div className="pt-8">
+              <button
                 onClick={() => setLocation("/admin")}
-                variant="outline"
-                className="border-white text-white hover:bg-white/10 px-8 py-6 text-lg font-semibold rounded-full flex items-center gap-2"
+                className="text-white/20 hover:text-white/40 transition-colors text-xs font-mono"
+                title="Acesso administrativo"
               >
-                <Settings size={20} />
-                Admin
-              </Button>
+                ⚙️
+              </button>
             </div>
           </div>
         </div>
@@ -188,24 +177,21 @@ export default function Home() {
         </div>
       </section>
 
-      {/* CTA FINAL */}
-      <section className="py-20 px-4 bg-gradient-to-r from-red-600 to-red-700">
-        <div className="max-w-4xl mx-auto text-center text-white space-y-8">
-          <h2 
-            className="text-4xl font-bold"
-            style={{ fontFamily: "Playfair Display, serif" }}
-          >
-            Pronto para Simular Seu Consórcio?
-          </h2>
-          <p className="text-xl text-red-100">
-            Descubra o potencial de alavancagem financeira com nossos produtos
-          </p>
-          <Button
-            onClick={() => setLocation("/simulador")}
-            className="bg-white hover:bg-red-50 text-red-600 px-12 py-6 text-lg font-semibold rounded-full shadow-lg hover:shadow-xl transition-all"
-          >
-            Iniciar Simulação Agora
-          </Button>
+      {/* SIMULADOR SIMPLIFICADO */}
+      <section className="py-20 px-4 bg-slate-50">
+        <div className="max-w-4xl mx-auto">
+          <div className="text-center mb-12">
+            <h2 
+              className="text-4xl font-bold text-slate-900 mb-4"
+              style={{ fontFamily: "Playfair Display, serif" }}
+            >
+              Simule Seu Consórcio
+            </h2>
+            <p className="text-xl text-slate-600">
+              Preencha os dados abaixo para descobrir o potencial de alavancagem financeira
+            </p>
+          </div>
+          <SimuladorSimplificado />
         </div>
       </section>
 
